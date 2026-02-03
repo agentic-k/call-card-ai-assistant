@@ -1,0 +1,56 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Additional files to ignore
+build/
+release/
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.make
+.env.*
+.cache
+coverage/
+tmp/
+bun.lockb
+
+# Supabase
+supabase/.temp/*
+supabase/.branches/_current_branch
+
+out/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+/electron/transformer/
+/electron/transformer/*
+.cursor-context/task.md
+.cursor-context/logs.md

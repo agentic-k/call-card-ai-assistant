@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+0. Always try to design the UI with principal of least fricition, using shadcn. meaning user should be able to complete the flow or action in least amound of clicks
+1. for file names use kebal-caseing 
+2. trying to keep file short and divide in components when possible 
+3. Move page-specific components from the global @/components folder into a components/ subfolder within their page directory (e.g., app/dashboard/components), then update import paths accordingly so global components stay reusable and page-specific ones stay organized.

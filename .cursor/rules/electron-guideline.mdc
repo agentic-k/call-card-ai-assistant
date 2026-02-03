@@ -1,0 +1,27 @@
+---
+description: electron guidelines
+globs:
+alwaysApply: true
+---
+
+# Electron Security (Main-only auth via IPC)
+
+* Prime rule: No auth or sensitive calls in any renderer. All tokens, secrets, and credentialed network I/O live in Main. Renderers talk to Main only via allow-listed IPC.
+
+* Renderer (UI-only): No OAuth, no Authorization headers, no cookies with session semantics, no tokens in localStorage/IndexedDB/files/memory, no direct calls to privileged endpoints. Public, cacheable assets only.
+
+* Main (privileged): Owns Google OAuth + Supabase; runs PKCE, receives loopback/custom-scheme redirect, performs code→token exchange, refreshes tokens, stores at rest in macOS Keychain; never returns raw tokens to renderer; performs all credentialed fetches and returns minimal, sanitized data.
+
+* IPC contract (tight): contextBridge API with explicit channel allow-list; use `ipcRenderer.invoke`/`ipcMain.handle`; validate schema + size; rate-limit; authorize via short-lived opaque session handles (not tokens); never echo headers/tokens across IPC.
+
+* Window/Preload hardening: `contextIsolation:true`, `sandbox:true`, `nodeIntegration:false`, `enableRemoteModule:false`; strict CSP (limit `connect-src` to known domains and `http://127.0.0.1:<oauth-port>`); block navigation/popups/untrusted protocols; disable DevTools in prod; preload exposes a tiny, typed surface.
+
+* Google OAuth (Web Client ID): Use system browser + PKCE; redirect via loopback or custom URL scheme registered in Google console; token exchange and refresh happen in Main only; no client secret in app.
+
+* Supabase: Never ship service-role key; even with anon key + RLS, prefer routing sensitive reads/writes through Main (or your server); session persistence + refresh in Main with Keychain.
+
+* Secrets & config: No secrets or API keys in renderer, preload, or shipped assets; keep sensitive config Main-only; assume the user can read the bundle.
+
+* Logging (strict): Use `console.debug`; never log tokens, Authorization headers, PII, or full responses; redact aggressively; gate verbosity behind a dev flag.
+
+* Threat model stance: Treat renderer as hostile; minimize scopes; minimize returned fields; short-lived in-memory secrets; prefer fail-closed defaults.

@@ -1,0 +1,2 @@
+## High-priority
+No. You should never load `sessionData` in the renderer process—any operation requiring session data or its metadata must be done in the main process (or a secure backend) to keep bearer tokens and credentials out of the inspectable renderer context ([electronjs.org][1], [auth0.com][2]). Any sensitive logic or data access tied to the user session belongs in `main.js` to maintain Electron’s security boundaries ([en.wikipedia.org][3]).

@@ -1,0 +1,280 @@
+@import url('https://rsms.me/inter/inter.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 196 61% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 196 61% 13%;
+
+    --primary: 196 61% 13%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --mint: 150 100% 30%;
+    --mint-hover: 150 100% 40%;
+    --mint-foreground: 0 0% 98%;
+    
+    --banana: 47 100% 85%;          /* Soft banana background */
+    --banana-hover: 47 100% 90%;      /* Hover is slightly lighter */
+    --banana-foreground: 42 100% 20%;   /* More muted, earthy brown-yellow */    
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-app-region: drag;
+  }
+
+  button, a, input, textarea, [role="button"], .electron-no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  /* macOS specific styling */
+  .mac-os .window {
+    @apply rounded-lg shadow-lg overflow-hidden border border-gray-200 ;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-lg;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-2 bg-primary text-primary-foreground rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95;
+  }
+  
+  .nav-item {
+    @apply relative px-4 py-2 text-muted-foreground hover:text-foreground transition-colors duration-300 cursor-pointer;
+  }
+  
+  .nav-item-active {
+    @apply text-foreground font-medium;
+  }
+  
+  .nav-item-active::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-full;
+  }
+
+  /* macOS style components */
+  .macos-window {
+    @apply rounded-lg shadow-lg overflow-hidden border border-gray-200 bg-white;
+  }
+
+  .macos-title-bar {
+    @apply h-10 flex items-center px-3 bg-[#f5f5f5] border-b border-gray-200;
+  }
+
+  .macos-traffic-light {
+    @apply w-3 h-3 rounded-full;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ******* Electron scrolling fixes ******* */
+.electron-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Add scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#root {
+  -webkit-app-region: drag;
+}
+
+button, a, input, select, textarea, .no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Question animation styles */
+@keyframes strikethrough {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes boom {
+  0% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1) rotate(2deg);
+    opacity: 0.8;
+  }
+  100% { 
+    transform: scale(0.3) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fragment {
+  0% { 
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(var(--tx)) translateY(var(--ty)) rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes slideToBottom {
+  0% { 
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.strike-animation {
+  position: relative;
+}
+
+.strike-animation::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background: #ef4444;
+  animation: strikethrough 0.5s ease-out forwards;
+  z-index: 10;
+}
+
+.boom-animation {
+  animation: boom 0.6s ease-out forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.boom-animation::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #fbbf24, #f59e0b, #d97706);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: explode 0.4s ease-out;
+  z-index: 20;
+}
+
+@keyframes explode {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(2); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
+
+.fragment {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--fragment-color);
+  animation: fragment 0.8s ease-out forwards;
+}
+
+.slide-in-bottom {
+  animation: slideToBottom 0.5s ease-out forwards;
+}
